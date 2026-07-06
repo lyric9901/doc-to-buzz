@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      likes: {
+        Row: {
+          created_at: string
+          id: string
+          likee_id: string
+          liker_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          likee_id: string
+          liker_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          likee_id?: string
+          liker_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          actor_id: string | null
+          created_at: string
+          entity_id: string | null
+          id: string
+          read: boolean
+          type: string
+          user_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          id?: string
+          read?: boolean
+          type: string
+          user_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          id?: string
+          read?: boolean
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number
@@ -22,10 +100,12 @@ export type Database = {
           created_at: string
           display_name: string
           gender: string
+          height_cm: number | null
           id: string
           interests: string[]
           is_verified: boolean
           onboarded: boolean
+          photos: string[]
           preferred_gender: string
           public_key: Json | null
           updated_at: string
@@ -37,10 +117,12 @@ export type Database = {
           created_at?: string
           display_name: string
           gender: string
+          height_cm?: number | null
           id: string
           interests?: string[]
           is_verified?: boolean
           onboarded?: boolean
+          photos?: string[]
           preferred_gender: string
           public_key?: Json | null
           updated_at?: string
@@ -52,10 +134,12 @@ export type Database = {
           created_at?: string
           display_name?: string
           gender?: string
+          height_cm?: number | null
           id?: string
           interests?: string[]
           is_verified?: boolean
           onboarded?: boolean
+          photos?: string[]
           preferred_gender?: string
           public_key?: Json | null
           updated_at?: string

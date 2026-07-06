@@ -74,7 +74,7 @@ function Onboarding() {
       if (error) throw error;
 
       toast.success("Welcome to BuzzMe 🚀");
-      navigate({ to: "/discover" });
+      navigate({ to: "/home" });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed");
     } finally {
