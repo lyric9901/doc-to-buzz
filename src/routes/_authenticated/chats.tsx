@@ -17,6 +17,8 @@ interface Thread {
   fromMe: boolean;
 }
 
+interface RawMsg { id: string; sender_id: string; recipient_id: string; body: string; created_at: string; read_at: string | null; }
+
 function Chats() {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,8 +34,8 @@ function Chats() {
       .order("created_at", { ascending: false })
       .limit(300);
 
-    const byPeer = new Map<string, { last: typeof msgs[number]; unread: number }>();
-    for (const m of msgs ?? []) {
+    const byPeer = new Map<string, { last: RawMsg; unread: number }>();
+    for (const m of (msgs ?? []) as RawMsg[]) {
       const peer = m.sender_id === uid ? m.recipient_id : m.sender_id;
       const existing = byPeer.get(peer);
       const isUnread = m.recipient_id === uid && !m.read_at;
