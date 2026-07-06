@@ -20,7 +20,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/discover" });
+      if (data.session) navigate({ to: "/home" });
     });
   }, [navigate]);
 
@@ -31,15 +31,15 @@ function AuthPage() {
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email, password,
-          options: { emailRedirectTo: window.location.origin + "/discover" },
+          options: { emailRedirectTo: window.location.origin + "/home" },
         });
         if (error) throw error;
         toast.success("You're in. Let's set up your vibe.");
-        navigate({ to: "/discover" });
+        navigate({ to: "/home" });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/discover" });
+        navigate({ to: "/home" });
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Auth failed");
@@ -54,7 +54,7 @@ function AuthPage() {
     });
     if (result.error) { toast.error("Google sign-in failed"); return; }
     if (result.redirected) return;
-    navigate({ to: "/discover" });
+    navigate({ to: "/home" });
   };
 
   return (
