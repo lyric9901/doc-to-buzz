@@ -31,7 +31,7 @@ function Profile() {
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
-      const { data } = await supabase.from("profiles").select("*").eq("id", u.user!.id).maybeSingle();
+      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,onboarded,created_at,updated_at").eq("id", u.user!.id).maybeSingle();
       setMe(data as Me);
     })();
   }, []);

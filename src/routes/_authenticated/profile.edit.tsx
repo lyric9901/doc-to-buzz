@@ -35,7 +35,7 @@ function EditProfile() {
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
-      const { data } = await supabase.from("profiles").select("*").eq("id", u.user!.id).maybeSingle();
+      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,onboarded,created_at,updated_at").eq("id", u.user!.id).maybeSingle();
       if (data) {
         setName(data.display_name);
         setAge(data.age);
