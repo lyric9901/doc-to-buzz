@@ -18,6 +18,7 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/home'
 import { Route as AuthenticatedChatsRouteImport } from './routes/_authenticated/chats'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedProfileEditRouteImport } from './routes/_authenticated/profile.edit'
 import { Route as AuthenticatedChatPeerIdRouteImport } from './routes/_authenticated/chat.$peerId'
 
@@ -66,6 +67,11 @@ const AuthenticatedChatsRoute = AuthenticatedChatsRouteImport.update({
   path: '/chats',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedProfileEditRoute =
   AuthenticatedProfileEditRouteImport.update({
     id: '/edit',
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/chats': typeof AuthenticatedChatsRoute
   '/home': typeof AuthenticatedHomeRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/chats': typeof AuthenticatedChatsRoute
   '/home': typeof AuthenticatedHomeRoute
   '/notifications': typeof AuthenticatedNotificationsRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/chats': typeof AuthenticatedChatsRoute
   '/_authenticated/home': typeof AuthenticatedHomeRoute
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sitemap.xml'
+    | '/admin'
     | '/chats'
     | '/home'
     | '/notifications'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/sitemap.xml'
+    | '/admin'
     | '/chats'
     | '/home'
     | '/notifications'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/sitemap.xml'
+    | '/_authenticated/admin'
     | '/_authenticated/chats'
     | '/_authenticated/home'
     | '/_authenticated/notifications'
@@ -228,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChatsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/profile/edit': {
       id: '/_authenticated/profile/edit'
       path: '/edit'
@@ -257,6 +276,7 @@ const AuthenticatedProfileRouteWithChildren =
   AuthenticatedProfileRoute._addFileChildren(AuthenticatedProfileRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedChatsRoute: typeof AuthenticatedChatsRoute
   AuthenticatedHomeRoute: typeof AuthenticatedHomeRoute
   AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
@@ -266,6 +286,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedChatsRoute: AuthenticatedChatsRoute,
   AuthenticatedHomeRoute: AuthenticatedHomeRoute,
   AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
