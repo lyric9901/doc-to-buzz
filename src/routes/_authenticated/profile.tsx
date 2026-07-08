@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Settings, LogOut, Ruler, Cake } from "lucide-react";
+import { Settings, LogOut, Ruler, Cake, BadgeCheck } from "lucide-react";
 import { toast } from "sonner";
 import { PhotoViewer } from "@/components/PhotoViewer";
 
@@ -21,6 +21,7 @@ interface Me {
   photos: string[];
   avatar_url: string | null;
   height_cm: number | null;
+  is_verified: boolean;
 }
 
 function Profile() {
@@ -31,7 +32,7 @@ function Profile() {
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
-      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,onboarded,created_at,updated_at").eq("id", u.user!.id).maybeSingle();
+      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,is_verified,onboarded,created_at,updated_at").eq("id", u.user!.id).maybeSingle();
       setMe(data as Me);
     })();
   }, []);
@@ -91,8 +92,16 @@ function Profile() {
         <div className="mt-6 rounded-3xl border border-border p-5" style={{ background: "var(--gradient-card)" }}>
           <div className="flex items-baseline gap-2">
             <h2 className="font-display text-3xl font-bold">{me.display_name}</h2>
+            {me.is_verified && (
+              <BadgeCheck className="h-6 w-6 fill-primary text-primary-foreground" aria-label="Verified" />
+            )}
             <span className="font-display text-2xl text-muted-foreground">{me.age}</span>
           </div>
+          {!me.is_verified && (
+            <p className="mt-2 rounded-lg border border-border/60 bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+              Your photos are pending admin review. You'll get a verified badge once approved.
+            </p>
+          )}
           <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="capitalize">{me.gender}</span>
             <span>· looking for {me.preferred_gender}</span>
