@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -48,14 +48,6 @@ function AuthPage() {
     }
   };
 
-  const handleGoogle = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) { toast.error("Google sign-in failed"); return; }
-    if (result.redirected) return;
-    navigate({ to: "/home" });
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-background">
@@ -73,13 +65,6 @@ function AuthPage() {
           {mode === "signup" ? "90-second vibe check. No BS." : "Pick up where you left off."}
         </p>
 
-        <Button onClick={handleGoogle} variant="outline" className="mt-6 w-full">
-          Continue with Google
-        </Button>
-
-        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-          <div className="h-px flex-1 bg-border" />or<div className="h-px flex-1 bg-border" />
-        </div>
 
         <form onSubmit={handleEmail} className="space-y-4">
           <div>
