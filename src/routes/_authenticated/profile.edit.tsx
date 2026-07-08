@@ -35,7 +35,7 @@ function EditProfile() {
   useEffect(() => {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
-      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,onboarded,created_at,updated_at").eq("id", u.user!.id).maybeSingle();
+      const { data } = await supabase.from("profiles").select("id,display_name,age,gender,preferred_gender,bio,interests,avatar_url,photos,height_cm,onboarded,created_at,updated_at,user_code").eq("id", u.user!.id).maybeSingle();
       if (data) {
         setName(data.display_name);
         setAge(data.age);
@@ -208,7 +208,7 @@ function EditProfile() {
         <section className="flex gap-3 rounded-2xl border border-border p-4 text-xs text-muted-foreground" style={{ background: "var(--gradient-card)" }}>
           <Info className="h-4 w-4 shrink-0 text-primary" />
           <p>
-            Want to remove the "lovable.app" name from Google's sign-in screen? Set up your own Google OAuth Client ID/Secret and paste them into Cloud → Auth Settings → Google. No code changes needed.
+            Google sign-in uses the OAuth client configured in your Supabase project. Update Google Auth Platform branding and the Supabase Google provider settings to control the consent screen.
           </p>
         </section>
       </main>
