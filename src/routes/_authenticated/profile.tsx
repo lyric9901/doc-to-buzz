@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Settings, LogOut, Ruler, Cake, BadgeCheck, Hash } from "lucide-react";
+import { Settings, LogOut, Ruler, Cake, BadgeCheck } from "lucide-react";
 import { toast } from "sonner";
 import { PhotoViewer } from "@/components/PhotoViewer";
 
