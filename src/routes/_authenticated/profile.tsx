@@ -22,7 +22,7 @@ interface Me {
   avatar_url: string | null;
   height_cm: number | null;
   is_verified: boolean;
-  user_code: string;
+  
 }
 
 function Profile() {
@@ -103,13 +103,6 @@ function Profile() {
               Your photos are pending admin review. You'll get a verified badge once approved.
             </p>
           )}
-          <div className="mt-4 flex items-center justify-between rounded-2xl border border-primary/30 bg-primary/10 px-4 py-3">
-            <span className="flex items-center gap-2 text-sm font-semibold text-primary">
-              <Hash className="h-4 w-4" />
-              Buzz ID
-            </span>
-            <span className="font-display text-2xl font-bold tracking-[0.2em] text-primary">{me.user_code}</span>
-          </div>
           <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="capitalize">{me.gender}</span>
             <span>· looking for {me.preferred_gender}</span>
