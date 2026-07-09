@@ -109,7 +109,6 @@ export type Database = {
           preferred_gender: string
           public_key: Json | null
           updated_at: string
-          user_code: string
         }
         Insert: {
           age: number
@@ -127,7 +126,6 @@ export type Database = {
           preferred_gender: string
           public_key?: Json | null
           updated_at?: string
-          user_code?: string
         }
         Update: {
           age?: number
@@ -145,7 +143,6 @@ export type Database = {
           preferred_gender?: string
           public_key?: Json | null
           updated_at?: string
-          user_code?: string
         }
         Relationships: []
       }
